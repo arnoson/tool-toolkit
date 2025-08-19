@@ -1,0 +1,93 @@
+* {
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+}
+
+body {
+  line-height: 1.2;
+}
+
+input,
+select {
+  line-height: 1.4;
+  padding-block: 0;
+  height: 1lh;
+}
+
+button {
+  line-height: 1.4;
+  padding-block: 0;
+}
+
+button,
+input {
+  padding-inline: 0.3rem;
+}
+
+select {
+  padding-inline: 0.1em;
+}
+
+button {
+  cursor: pointer;
+
+  &:hover:not(:active) {
+    background-color: var(--color-text);
+  }
+}
+
+button[data-theme='positive'] {
+  background-color: var(--color-accent);
+  color: var(--color-text);
+
+  &:hover:not(:active) {
+    background-color: var(--color-text);
+    color: var(--color-accent);
+  }
+}
+
+input,
+textarea,
+select,
+button {
+  box-sizing: content-box;
+  border: none;
+  border-radius: 3px;
+  background-color: var(--color-panel-background);
+  color: var(--color-panel-text);
+}
+
+input,
+select {
+  min-width: 2ch;
+  accent-color: var(--color-accent);
+  &::placeholder {
+    color: var(--color-grid);
+  }
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input[type='checkbox'] {
+  width: max-content;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+summary {
+  cursor: pointer;
+}
+
+svg {
+  display: block;
+}
+
+.flow > * + * {
+  margin-block-start: var(--flow-space, 0.5rem);
+}
