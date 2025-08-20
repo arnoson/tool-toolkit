@@ -43,13 +43,13 @@ const selectNext = () => {
 .tool-bar {
   display: flex;
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: var(--size-3);
+  right: var(--size-3);
   flex-direction: column;
   gap: 3px;
   padding: 2px;
   background-color: var(--color-panel-background);
-  border-radius: 4px;
+  border-radius: var(--radius-2);
 
   button {
     display: block;

@@ -4,15 +4,40 @@
 @import './field.css' layer(components);
 
 :root {
-  --color-background: black;
-  --color-text: white;
-  --color-grid: hsl(0 0% 14% / 1);
-  --color-guide: var(--color-panel-background);
-  --color-panel-background: hsl(0 0% 60% / 1);
-  --color-panel-text: var(--color-background);
-  --color-accent: tomato;
+  /* Color */
+  --color-black: black;
+  --color-white: white;
+
+  --color-gray-1: hsl(0 0% 14% / 1);
+  --color-gray-2: hsl(0 0% 20% / 1);
+  --color-gray-3: hsl(0 0% 40% / 1);
+  --color-gray-4: hsl(0 0% 60% / 1);
+
+  --color-background: var(--color-black);
+  --color-text: var(--color-white);
+  --color-grid: var(--color-gray-1);
+  --color-guide: var(--color-gray-4);
+  --color-panel-background: var(--color-gray-4);
+  --color-panel-text: var(--color-black);
+  --color-accent: blue;
   --color-bounds: var(--color-accent);
-  --color-border: hsl(0 0% 20% / 1);
+  --color-border: var(--color-gray-2);
+
+  /* Radius */
+  --radius-1: 2px;
+  --radius-2: 4px;
+
+  /* Size */
+  --size-1: 0.25rem;
+  --size-2: 0.5rem;
+  --size-3: 1rem;
+  --size-4: 1.25rem;
+  --size-5: 1.5rem;
+  --size-6: 1.75rem;
+  --size-7: 2rem;
+  --size-8: 3rem;
+  --size-9: 4rem;
+  --size-10: 5rem;
 }
 
 html,

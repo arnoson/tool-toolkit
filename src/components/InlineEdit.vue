@@ -32,11 +32,8 @@ const endEdit = (e: Event) => {
 
 <style scoped>
 input {
-  padding: 0;
-  background: none;
-  color: inherit;
-  text-align: inherit;
-  width: 100%;
   field-sizing: content;
+  box-sizing: border-box;
+  max-width: 100%;
 }
 </style>

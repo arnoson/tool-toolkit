@@ -38,10 +38,10 @@ const swatch = computed(() => props.swatches.find((v) => v.value === model.value
 <style scoped>
 .preview {
   --preview-height: 1lh;
-  --swatch-size: 1rem;
+  --swatch-size: var(--size-3);
 
   display: flex;
-  gap: 0.3rem;
+  gap: 0var (--size-8);
   align-items: center;
   overflow: hidden;
   padding-inline: calc((var(--preview-height) - var(--swatch-size)) / 2);
@@ -61,12 +61,12 @@ const swatch = computed(() => props.swatches.find((v) => v.value === model.value
 .swatches {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  gap: 0.25rem;
+  gap: var(--size-1);
   background: var(--color-background);
-  border-radius: 4px;
+  border-radius: var(--radius-2);
   border: 1px solid var(--color-border);
   color: var(--color-text);
-  padding: 0.5rem;
+  padding: var(--size-2);
 
   .swatch {
     border: 1px solid hsl(0deg 0% 25%);
@@ -76,7 +76,7 @@ const swatch = computed(() => props.swatches.find((v) => v.value === model.value
 .swatch {
   width: var(--swatch-size);
   height: var(--swatch-size);
-  border-radius: 0.1rem;
+  border-radius: var(--radius-1);
   padding: 0;
 }
 </style>

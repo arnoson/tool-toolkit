@@ -20,6 +20,6 @@ import './assets/main.css'
 #app {
   display: grid;
   grid-template-columns: 10rem 1fr;
-  gap: 3rem;
+  gap: var(--size-8);
 }
 </style>

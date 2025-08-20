@@ -21,7 +21,7 @@ button {
 
 button,
 input {
-  padding-inline: 0.3rem;
+  padding-inline: 0var (--size-8);
 }
 
 select {
@@ -52,7 +52,7 @@ select,
 button {
   box-sizing: content-box;
   border: none;
-  border-radius: 3px;
+  border-radius: var(--radius-1);
   background-color: var(--color-panel-background);
   color: var(--color-panel-text);
 }
@@ -89,5 +89,5 @@ svg {
 }
 
 .flow > * + * {
-  margin-block-start: var(--flow-space, 0.5rem);
+  margin-block-start: var(--flow-space, var(--size-2));
 }

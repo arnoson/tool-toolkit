@@ -16,7 +16,7 @@ const id = getInputId()
 <style scoped>
 .info {
   color: hsl(0 0% 50% / 1);
-  padding-inline: 0.5rem;
+  padding-inline: var(--size-2);
   grid-column: span 2;
 }
 </style>

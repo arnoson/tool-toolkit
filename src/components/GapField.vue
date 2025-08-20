@@ -40,7 +40,7 @@ const id = getInputId()
 <style scoped>
 .inputs {
   display: grid;
-  gap: 0.5rem;
+  gap: var(--size-2);
   grid-template-columns: 1fr 1fr;
 }
 

@@ -73,9 +73,9 @@ const paste = () => copiedFrame && emit('duplicate', copiedFrame)
 }
 
 .header {
-  padding-inline: 1rem;
-  padding-bottom: 0.5rem;
-  padding-top: 0.5rem;
+  padding-inline: var(--size-3);
+  padding-bottom: var(--size-2);
+  padding-top: var(--size-2);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -85,7 +85,7 @@ const paste = () => copiedFrame && emit('duplicate', copiedFrame)
   display: block;
   background: none;
   padding: 0;
-  border-radius: 4px;
+  border-radius: var(--radius-2);
 
   &:hover {
     background: var(--color-grid);
@@ -97,9 +97,9 @@ const paste = () => copiedFrame && emit('duplicate', copiedFrame)
   grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
   grid-auto-rows: max-content;
   align-items: start;
-  gap: 1rem;
-  padding-inline: 1rem;
-  padding-bottom: 1rem;
+  gap: var(--size-3);
+  padding-inline: var(--size-3);
+  padding-bottom: var(--size-3);
   flex: 1;
   overflow-y: auto;
 }
@@ -107,7 +107,7 @@ const paste = () => copiedFrame && emit('duplicate', copiedFrame)
 .frame {
   position: relative;
   border: 1px solid var(--color-border);
-  border-radius: 4px;
+  border-radius: var(--radius-2);
   overflow: hidden;
   cursor: pointer;
   background: inherit;
@@ -134,7 +134,7 @@ const paste = () => copiedFrame && emit('duplicate', copiedFrame)
     position: absolute;
     top: 0;
     right: 0;
-    border-radius: 4px;
+    border-radius: var(--radius-2);
     box-sizing: content-box;
     margin: 0.1rem;
     padding: 0.1rem;

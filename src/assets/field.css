@@ -1,7 +1,7 @@
 .field {
   display: grid;
   grid-template-columns: 9ch 1fr;
-  gap: 0.5rem;
+  gap: var(--size-2);
   align-items: center;
 
   label {

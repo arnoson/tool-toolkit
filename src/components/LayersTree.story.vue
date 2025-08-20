@@ -4,8 +4,8 @@ import CircleIcon from '~/assets/icons/icon-layer-circle.svg'
 import DrawIcon from '~/assets/icons/icon-layer-draw.svg'
 import GroupIcon from '~/assets/icons/icon-layer-group.svg'
 import RectIcon from '~/assets/icons/icon-layer-rect.svg'
-import LayersTree from './LayersTree.vue'
 import Story from './Story.vue'
+import LayersTree from './LayersTree.vue'
 
 type Type = 'bitmap' | 'rect' | 'circle' | 'group'
 type Item = {
@@ -39,17 +39,19 @@ const items = ref<Item[]>([
     ],
   },
 ])
+
+const icons = {
+  bitmap: DrawIcon,
+  rect: RectIcon,
+  circle: CircleIcon,
+  group: GroupIcon,
+}
+
+const selectedItems = ref(new Set<Item>())
 </script>
 
 <template>
-  <Story style="margin: 1rem">
-    <LayersTree :items>
-      <template #icon="{ item }">
-        <DrawIcon v-if="item.type === 'bitmap'" />
-        <RectIcon v-else-if="item.type === 'rect'" />
-        <CircleIcon v-else-if="item.type === 'circle'" />
-        <GroupIcon v-else-if="item.type === 'group'" />
-      </template>
-    </LayersTree>
+  <Story style="margin: 1rem; width: 10rem">
+    <LayersTree :items :selected-items :icons />
   </Story>
 </template>
