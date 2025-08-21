@@ -73,7 +73,7 @@ const paste = () => copiedFrame && emit('duplicate', copiedFrame)
 }
 
 .header {
-  padding-inline: var(--size-3);
+  padding-inline: var(--size-4);
   padding-bottom: var(--size-2);
   padding-top: var(--size-2);
   display: flex;
@@ -97,9 +97,9 @@ const paste = () => copiedFrame && emit('duplicate', copiedFrame)
   grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
   grid-auto-rows: max-content;
   align-items: start;
-  gap: var(--size-3);
-  padding-inline: var(--size-3);
-  padding-bottom: var(--size-3);
+  gap: var(--size-4);
+  padding-inline: var(--size-4);
+  padding-bottom: var(--size-4);
   flex: 1;
   overflow-y: auto;
 }

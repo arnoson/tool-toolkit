@@ -13,7 +13,7 @@ const swatch = computed(() => props.swatches.find((v) => v.value === model.value
 </script>
 
 <template>
-  <div class="field">
+  <div class="field swatch-field">
     <label :for="id">{{ label }}</label>
     <PopoverRoot>
       <PopoverTrigger class="preview" :id="id">
@@ -36,12 +36,15 @@ const swatch = computed(() => props.swatches.find((v) => v.value === model.value
 </template>
 
 <style scoped>
+.swatch-field {
+  --swatch-size: var(--size-4);
+}
+
 .preview {
   --preview-height: 1lh;
-  --swatch-size: var(--size-3);
 
   display: flex;
-  gap: 0var (--size-8);
+  gap: var(--size-1);
   align-items: center;
   overflow: hidden;
   padding-inline: calc((var(--preview-height) - var(--swatch-size)) / 2);

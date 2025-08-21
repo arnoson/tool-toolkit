@@ -21,7 +21,7 @@ button {
 
 button,
 input {
-  padding-inline: 0var (--size-8);
+  padding-inline: var(--size-1);
 }
 
 select {

@@ -43,8 +43,8 @@ const selectNext = () => {
 .tool-bar {
   display: flex;
   position: absolute;
-  top: var(--size-3);
-  right: var(--size-3);
+  top: var(--size-4);
+  right: var(--size-4);
   flex-direction: column;
   gap: 3px;
   padding: 2px;
@@ -57,7 +57,11 @@ const selectNext = () => {
 
     &[aria-pressed='true'] {
       color: var(--color-accent);
-      background-color: var(--color-text);
+      background-color: var(--color-white);
+    }
+
+    &:active {
+      background-color: var(--color-white);
     }
 
     svg {

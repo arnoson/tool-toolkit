@@ -242,7 +242,7 @@ const handleMouseDown = (item: T, e: MouseEvent) => {
   gap: var(--layers-gap);
   list-style: none;
   padding: 0;
-  margin-inline: var(--size-3) 0;
+  margin-inline: var(--size-4) 0;
 }
 
 .drop-indicator {
