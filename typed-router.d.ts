@@ -23,8 +23,6 @@ declare module 'vue-router/auto-routes' {
     '/Form': RouteRecordInfo<'/Form', '/Form', Record<never, never>, Record<never, never>>,
     '/FramesList': RouteRecordInfo<'/FramesList', '/FramesList', Record<never, never>, Record<never, never>>,
     '/LayersTree': RouteRecordInfo<'/LayersTree', '/LayersTree', Record<never, never>, Record<never, never>>,
-    '/NumberField': RouteRecordInfo<'/NumberField', '/NumberField', Record<never, never>, Record<never, never>>,
-    '/SelectField': RouteRecordInfo<'/SelectField', '/SelectField', Record<never, never>, Record<never, never>>,
     '/ToolBar': RouteRecordInfo<'/ToolBar', '/ToolBar', Record<never, never>, Record<never, never>>,
   }
 
@@ -57,14 +55,6 @@ declare module 'vue-router/auto-routes' {
     }
     'src/components/LayersTree.story.vue': {
       routes: '/LayersTree'
-      views: never
-    }
-    'src/components/NumberField.story.vue': {
-      routes: '/NumberField'
-      views: never
-    }
-    'src/components/SelectField.story.vue': {
-      routes: '/SelectField'
       views: never
     }
     'src/components/ToolBar.story.vue': {
