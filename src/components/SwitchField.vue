@@ -22,8 +22,10 @@ button {
 }
 
 .switch-root {
-  width: 2lh;
-  height: 1lh;
+  --size: 1.1rem;
+
+  width: calc(2 * var(--size));
+  height: var(--size);
   border-radius: 9999px;
   position: relative;
   cursor: pointer;
@@ -37,8 +39,8 @@ button {
 
 .switch-thumb {
   display: block;
-  width: 1lh;
-  height: 1lh;
+  width: var(--size);
+  height: var(--size);
   background-color: var(--color-panel-background);
   border-radius: 9999px;
 
@@ -46,7 +48,7 @@ button {
   will-change: transform;
 
   &[data-state='checked'] {
-    transform: translateX(1lh);
+    transform: translateX(var(--size));
   }
 
   .switch-root:hover &,

@@ -82,14 +82,14 @@ const paste = () => copiedFrame && emit('duplicate', copiedFrame)
 }
 
 .add {
-  display: block;
+  /* display: block;
   background: none;
   padding: 0;
   border-radius: var(--radius-2);
 
   &:hover {
     background: var(--color-grid);
-  }
+  } */
 }
 
 .frames {

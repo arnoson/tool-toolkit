@@ -3,6 +3,7 @@
 @import './base.css' layer(base);
 @import './field.css' layer(components);
 @import './dialog.css' layer(components);
+@import './form.css' layer(components);
 
 :root {
   /* Color */
@@ -25,7 +26,7 @@
   --color-border: var(--color-gray-2);
 
   /* Radius */
-  --radius-1: 2px;
+  --radius-1: 3px;
   --radius-2: 4px;
 
   /* Size */

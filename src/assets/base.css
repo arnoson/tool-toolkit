@@ -8,20 +8,19 @@ body {
 }
 
 input,
-select {
-  line-height: 1.4;
+select,
+button {
   padding-block: 0;
+  line-height: 1.7;
+}
+
+input,
+select {
   height: 1lh;
 }
 
-button {
-  line-height: 1.4;
-  padding-block: 0;
-}
-
-button,
 input {
-  padding-inline: var(--size-1);
+  padding-inline: 0.4em;
 }
 
 select {
@@ -30,6 +29,7 @@ select {
 
 button {
   cursor: pointer;
+  padding-inline: 0.5em;
 
   &:hover:not(:active) {
     background-color: var(--color-text);
@@ -43,6 +43,19 @@ button[data-theme='positive'] {
   &:hover:not(:active) {
     background-color: var(--color-text);
     color: var(--color-accent);
+  }
+}
+
+button:has(svg) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: var(--color-text);
+  background-color: var(--color-background);
+
+  &:hover:not(:active) {
+    background-color: var(--color-gray-1);
   }
 }
 

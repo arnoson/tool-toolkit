@@ -51,7 +51,7 @@ const selectedItems = ref(new Set<Item>())
 </script>
 
 <template>
-  <Story style="margin: 1rem; width: 10rem">
+  <Story size="small">
     <LayersTree :items :selected-items :icons />
   </Story>
 </template>

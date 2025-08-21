@@ -8,13 +8,15 @@ import ColorField from './ColorField.vue'
 import PointField from './PointField.vue'
 import CheckboxField from './CheckboxField.vue'
 import GapField from './GapField.vue'
+import TextField from './TextField.vue'
 </script>
 
 <template>
   <Story size="small">
-    <div class="flow">
+    <div class="form">
       <button>Button</button>
       <NumberField label="Number" :model-value="1" />
+      <TextField label="Text" model-value="Hi" />
       <SelectField
         label="Select"
         :model-value="1"

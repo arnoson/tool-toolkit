@@ -54,6 +54,12 @@ const selectNext = () => {
   button {
     display: block;
     padding: 1px;
+    background-color: inherit;
+    color: var(--color-black);
+
+    &:hover {
+      background-color: var(--color-white);
+    }
 
     &[aria-pressed='true'] {
       color: var(--color-accent);

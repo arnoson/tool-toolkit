@@ -29,8 +29,8 @@ const copy = async () => await navigator.clipboard.writeText(props.code)
 <template>
   <div class="code-viewer">
     <div class="menu">
-      <button style="margin-left: auto" @click="copy">copy</button>
-      <button @click="downloadFile(fileName, code)">download</button>
+      <button style="margin-left: auto" @click="copy">Copy</button>
+      <button @click="downloadFile(fileName, code)">Download</button>
       <button v-if="slots.settings" @click="settingsDialog?.open()" class="settings-trigger">
         <IconSettings />
       </button>
@@ -70,13 +70,6 @@ const copy = async () => await navigator.clipboard.writeText(props.code)
 .menu {
   display: flex;
   gap: var(--menu-gap);
-
-  button:has(svg) {
-    padding-inline: var(--size-1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
 }
 
 .settings-trigger {
