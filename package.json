@@ -18,15 +18,16 @@
     "@atlaskit/pragmatic-drag-and-drop": "^1.7.4",
     "@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.1.0",
     "@vueuse/integrations": "^13.6.0",
+    "prismjs": "^1.30.0",
     "reka-ui": "^2.4.1",
     "sortablejs": "^1.15.6",
-    "vue": "^3.5.18",
-    "prismjs": "^1.30.0"
+    "vue": "^3.5.18"
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.2",
     "@types/node": "^22.16.5",
     "@types/prismjs": "^1.26.5",
+    "@types/wicg-file-system-access": "^2023.10.6",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/tsconfig": "^0.7.0",
     "npm-run-all2": "^8.0.4",

@@ -19,6 +19,7 @@ declare module 'vue-router/auto-routes' {
    */
   export interface RouteNamedMap {
     '/CodeViewer': RouteRecordInfo<'/CodeViewer', '/CodeViewer', Record<never, never>, Record<never, never>>,
+    '/FileMenu': RouteRecordInfo<'/FileMenu', '/FileMenu', Record<never, never>, Record<never, never>>,
     '/Form': RouteRecordInfo<'/Form', '/Form', Record<never, never>, Record<never, never>>,
     '/FramesList': RouteRecordInfo<'/FramesList', '/FramesList', Record<never, never>, Record<never, never>>,
     '/LayersTree': RouteRecordInfo<'/LayersTree', '/LayersTree', Record<never, never>, Record<never, never>>,
@@ -40,6 +41,10 @@ declare module 'vue-router/auto-routes' {
   export interface _RouteFileInfoMap {
     'src/components/CodeViewer.story.vue': {
       routes: '/CodeViewer'
+      views: never
+    }
+    'src/components/FileMenu.story.vue': {
+      routes: '/FileMenu'
       views: never
     }
     'src/components/Form.story.vue': {

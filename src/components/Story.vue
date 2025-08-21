@@ -11,6 +11,10 @@ withDefaults(defineProps<{ size?: 'small' | 'medium' | 'large' }>(), {
 </template>
 
 <style scoped>
+.story {
+  padding: 2rem;
+}
+
 .story[data-size='small'] {
   max-width: 20rem;
 }
