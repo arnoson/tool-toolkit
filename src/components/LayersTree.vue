@@ -1,12 +1,9 @@
 <script setup lang="ts" generic="T extends Layer<T>">
-import { extractInstruction } from '@atlaskit/pragmatic-drag-and-drop-hitbox/list-item'
-import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter'
-import { onWatcherCleanup, watchEffect, type Component } from 'vue'
-import { findInTree, insertIntoTreeAfter, insertIntoTreeBefore, removeFromTree } from '~/utils/tree'
-import DraggableTreeItem from './DraggableTreeItem.vue'
-import LayersItem from './LayersItem.vue'
-import type { Layer } from '~/types/layer'
+import { type Component } from 'vue'
 import { useDraggableTree } from '~/composables/draggableTree'
+import type { Layer } from '~/types/layer'
+import { findInTree, insertIntoTreeAfter, insertIntoTreeBefore, removeFromTree } from '~/utils/tree'
+import LayersItem from './LayersItem.vue'
 
 const props = defineProps<{
   items: T[]
