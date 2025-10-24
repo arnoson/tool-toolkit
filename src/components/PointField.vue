@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getInputId } from '~/utils/id'
+import { getInputId } from '../utils/id'
 
 type Point = { x: number; y: number }
 
@@ -45,5 +45,6 @@ input {
 
 .prefixed-input {
   display: flex;
+  align-items: baseline;
 }
 </style>

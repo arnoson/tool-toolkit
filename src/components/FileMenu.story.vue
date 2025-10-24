@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import FileMenu from './FileMenu.vue'
 import Story from './Story.vue'
-import { downloadFile } from '~/utils/file'
+import { downloadFile } from '../utils/file'
 import TextField from './TextField.vue'
 
 const fileType: FilePickerAcceptType = {

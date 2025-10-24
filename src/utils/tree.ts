@@ -3,7 +3,10 @@ export type TreeItem = {
   children?: TreeItem[]
 }
 
-export const findInTree = <T extends TreeItem>(items: T[], id: number): T | null => {
+export const findInTree = <T extends TreeItem>(
+  items: T[],
+  id: number,
+): T | null => {
   for (const item of items) {
     if (item.id === id) return item
     if (item.children?.length) {
@@ -26,12 +29,15 @@ export const getMaxTreeId = <T extends TreeItem>(item: T): number => {
   return maxId
 }
 
-export const removeFromTree = <T extends TreeItem>(items: T[], id: number): T | null => {
+export const removeFromTree = <T extends TreeItem>(
+  items: T[],
+  id: number,
+): T | null => {
   const index = items.findIndex((v) => v.id === id)
   if (index !== -1) {
     const removedItem = items[index]
     items.splice(index, 1)
-    return removedItem
+    return removedItem ?? null
   }
 
   for (const item of items) {
@@ -81,7 +87,10 @@ export const insertIntoTreeAfter = <T extends TreeItem>(
   return false
 }
 
-export const flattenTree = <T extends TreeItem>(items: T[], result: T[] = []): T[] => {
+export const flattenTree = <T extends TreeItem>(
+  items: T[],
+  result: T[] = [],
+): T[] => {
   for (const item of items) {
     result.push(item)
     if (item.children?.length) flattenTree(item.children as T[], result)

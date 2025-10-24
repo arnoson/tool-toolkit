@@ -9,6 +9,14 @@ const id = getInputId()
 <template>
   <div class="field">
     <label :for="id">{{ label }}</label>
-    <input :id :min :max :step type="number" v-model="model" />
+    <input
+      :id="id"
+      type="range"
+      :min="min"
+      :max="max"
+      :step="step"
+      :value="model"
+      @input="model = +($event.target as HTMLInputElement).value"
+    />
   </div>
 </template>

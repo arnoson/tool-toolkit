@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed, ref, useTemplateRef } from 'vue'
-import IconSettings from '~/assets/icons/icon-settings.svg'
-import { downloadFile } from '~/utils/file'
-import ModalDialog from './ModalDialog.vue'
 import Prism from 'prismjs'
+import { computed, useTemplateRef } from 'vue'
+import IconSettings from '../assets/icons/icon-settings.svg'
+import { downloadFile } from '../utils/file'
+import ModalDialog from './ModalDialog.vue'
 
-import '~/assets/theme-github-copiltot.css'
+import '../assets/theme-github-copiltot.css'
 
 Prism.manual = true
 
@@ -18,7 +18,7 @@ const props = defineProps<{
 const slots = defineSlots<{ settings(): any }>()
 
 const highlighted = computed(() =>
-  Prism.highlight(props.code, Prism.languages[props.language], props.language),
+  Prism.highlight(props.code, Prism.languages[props.language]!, props.language),
 )
 
 const settingsDialog = useTemplateRef('settings')
@@ -31,7 +31,12 @@ const copy = async () => await navigator.clipboard.writeText(props.code)
     <div class="menu">
       <button style="margin-left: auto" @click="copy">Copy</button>
       <button @click="downloadFile(fileName, code)">Download</button>
-      <button v-if="slots.settings" @click="settingsDialog?.open()" class="settings-trigger">
+      <button
+        v-if="slots.settings"
+        @click="settingsDialog?.open()"
+        class="settings-trigger"
+        data-theme="dark"
+      >
         <IconSettings />
       </button>
     </div>

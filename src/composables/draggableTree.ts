@@ -13,7 +13,7 @@ import { unrefElement } from '@vueuse/core'
 import { ref, watchEffect } from 'vue'
 
 import { onWatcherCleanup, type Ref } from 'vue'
-import type { TreeItem } from '~/utils/tree'
+import type { TreeItem } from '../utils/tree'
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview'
 import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/disable-native-drag-preview'
 
@@ -34,13 +34,16 @@ export const useDraggableTree = ({
         const { location, source } = args
         if (!location.current.dropTargets.length) return
 
-        const sourceId = Number(source.data.id)
         const [target] = location.current.dropTargets
+        if (!target) return
+
+        const sourceId = Number(source.data.id)
         const targetId = Number(target.data.id)
         const { operation } = extractInstruction(target.data) ?? {}
 
         if (operation === 'reorder-before') reorderBefore?.(targetId, sourceId)
-        else if (operation === 'reorder-after') reorderAfter?.(targetId, sourceId)
+        else if (operation === 'reorder-after')
+          reorderAfter?.(targetId, sourceId)
         else if (operation === 'combine') combine?.(targetId, sourceId)
       },
     })
@@ -101,7 +104,8 @@ export const useDraggableTreeItem = (
             },
           ),
         canDrop: ({ source }) => source.data.id !== item.value.id,
-        onDrag: ({ self }) => (instruction.value = extractInstruction(self.data)),
+        onDrag: ({ self }) =>
+          (instruction.value = extractInstruction(self.data)),
         onDragEnter: ({ source }) => {
           if (source.data.id === item.value.id) return
           isDraggedOver.value = true

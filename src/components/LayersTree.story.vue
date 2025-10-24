@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import CircleIcon from '~/assets/icons/icon-layer-circle.svg'
-import DrawIcon from '~/assets/icons/icon-layer-draw.svg'
-import GroupIcon from '~/assets/icons/icon-layer-group.svg'
-import RectIcon from '~/assets/icons/icon-layer-rect.svg'
+import CircleIcon from '../assets/icons/icon-layer-circle.svg'
+import DrawIcon from '../assets/icons/icon-layer-draw.svg'
+import GroupIcon from '../assets/icons/icon-layer-group.svg'
+import RectIcon from '../assets/icons/icon-layer-rect.svg'
 import Story from './Story.vue'
 import LayersTree from './LayersTree.vue'
 

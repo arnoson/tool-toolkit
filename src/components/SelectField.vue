@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="T">
-import { getInputId } from '~/utils/id'
+import { getInputId } from '../utils/id'
 
 type Option = { value: T; label: string }
 type OptionGroup = { label: string; options: Option[] }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getInputId } from '~/utils/id'
+import { getInputId } from '../utils/id'
 
 type Size = { width: number; height: number }
 
@@ -23,10 +23,18 @@ const updateHeight = (e: Event) => {
     <label :for="id">{{ label }}</label>
     <div class="inputs">
       <div class="prefixed-input">
-        w&nbsp;<input type="number" :value="model.width" @change="updateWidth" />
+        w&nbsp;<input
+          type="number"
+          :value="model.width"
+          @change="updateWidth"
+        />
       </div>
       <div class="prefixed-input">
-        h&nbsp;<input type="number" :value="model.height" @change="updateHeight" />
+        h&nbsp;<input
+          type="number"
+          :value="model.height"
+          @change="updateHeight"
+        />
       </div>
     </div>
   </div>
@@ -45,5 +53,6 @@ input {
 
 .prefixed-input {
   display: flex;
+  align-items: baseline;
 }
 </style>

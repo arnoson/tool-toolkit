@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { CheckboxIndicator, CheckboxRoot } from 'reka-ui'
-import { getInputId } from '~/utils/id'
-import CheckIcon from '~/assets/icons/icon-check.svg'
+import { getInputId } from '../utils/id'
+import CheckIcon from '../assets/icons/icon-check.svg'
 
 defineProps<{ label: string }>()
 const model = defineModel<boolean>({ required: true })

@@ -1,24 +1,69 @@
 <script setup lang="ts" generic="T extends { id: number; name: string }">
 import { useSortable } from '@vueuse/integrations/useSortable'
-import { ref, toRaw, useTemplateRef } from 'vue'
-import IconDrag from '~/assets/icons/icon-drag.svg'
-import IconAdd from '~/assets/icons/icon-add.svg'
+import { ref, useTemplateRef } from 'vue'
+import IconAdd from '../assets/icons/icon-add.svg'
+import IconDrag from '../assets/icons/icon-drag.svg'
 import InlineEdit from './InlineEdit.vue'
 
-const props = defineProps<{ label?: string; sortable?: boolean }>()
+const props = defineProps<{
+  sortable?: boolean
+  draggable?: boolean
+  rename?: boolean
+  size?: 'medium' | 'small' | 'big'
+}>()
+
 const frames = defineModel<T[]>({ required: true })
 const selectedFrameId = defineModel<T['id']>('selected')
-const emit = defineEmits<{ add: []; duplicate: [frame: T]; remove: [frame: T] }>()
+const emit = defineEmits<{
+  add: []
+  duplicate: [frame: T]
+  remove: [frame: T]
+  rename: [frame: T, name: string]
+  drag: [e: MouseEvent, frame: T]
+  dragStart: [e: MouseEvent, frame: T]
+  dragCancel: [frame: T]
+  dragEnd: [e: MouseEvent, frame: T]
+}>()
 
 const el = useTemplateRef('el')
-const isDragging = ref(false)
+const isSorting = ref(false)
+let draggingFrame: T | null = null
 
 if (props.sortable) {
   useSortable(el, frames, {
-    handle: '.drag-handle',
-    onStart: () => (isDragging.value = true),
-    onEnd: () => (isDragging.value = false),
+    handle: '.sort-handle',
+    onStart: () => (isSorting.value = true),
+    onEnd: () => (isSorting.value = false),
   })
+}
+
+const dragStart = (e: MouseEvent, frame: T) => {
+  if ((e.target as HTMLElement).closest('.drag-handle')) return
+  emit('dragStart', e, frame)
+  draggingFrame = frame
+  window.addEventListener('mousemove', drag)
+  window.addEventListener('mouseup', dragEnd)
+}
+
+const drag = (e: MouseEvent) => {
+  if (!draggingFrame) return
+  emit('drag', e, draggingFrame)
+}
+
+const dragCancel = () => {
+  // @ts-ignore
+  emit('dragCancel', draggingFrame)
+  window.removeEventListener('mousemove', drag)
+  window.removeEventListener('mouseup', dragEnd)
+  draggingFrame = null
+}
+
+const dragEnd = (e: MouseEvent) => {
+  // @ts-ignore
+  emit('dragEnd', e, draggingFrame)
+  window.removeEventListener('mousemove', drag)
+  window.removeEventListener('mouseup', dragEnd)
+  draggingFrame = null
 }
 
 let copiedFrame: T | null = null
@@ -30,10 +75,12 @@ const paste = () => copiedFrame && emit('duplicate', copiedFrame)
   <section class="section">
     <header class="header">
       <h2>
-        {{ frames.length }}
-        {{ frames.length === 1 ? 'Frame' : 'Frames' }}
+        <slot name="heading">
+          {{ frames.length }}
+          {{ frames.length === 1 ? 'Frame' : 'Frames' }}
+        </slot>
       </h2>
-      <button class="add" @click="emit('add')">
+      <button class="add" @click="emit('add')" data-theme="dark">
         <IconAdd />
       </button>
     </header>
@@ -42,7 +89,8 @@ const paste = () => copiedFrame && emit('duplicate', copiedFrame)
       role="list"
       ref="el"
       tabindex="-1"
-      :data-dragging="isDragging"
+      :data-size="size ?? 'medium'"
+      :data-sorting="isSorting"
       @keydown.ctrl.v.stop="paste"
     >
       <button
@@ -52,13 +100,21 @@ const paste = () => copiedFrame && emit('duplicate', copiedFrame)
         :key="frame.id"
         :aria-current="frame.id === selectedFrameId"
         @click="selectedFrameId = frame.id"
-        @keydown.delete="emit('remove', frame)"
+        @keydown.delete="!draggingFrame && emit('remove', frame)"
         @keydown.c.ctrl="copy(frame)"
+        draggable="false"
+        @mousedown="props.draggable && dragStart($event, frame)"
+        @keydown.escape="draggingFrame && dragCancel()"
       >
         <slot name="preview" :frame></slot>
-        <IconDrag v-if="sortable" class="drag-handle" />
+        <IconDrag v-if="sortable" class="sort-handle" />
         <header class="frame-name">
-          <InlineEdit v-model="frame.name" />
+          <InlineEdit
+            v-if="rename"
+            v-model:model-value="frame.name"
+            @update:model-value="emit('rename', frame, $event)"
+          />
+          <template v-else>{{ frame.name }}</template>
         </header>
       </button>
     </div>
@@ -69,7 +125,6 @@ const paste = () => copiedFrame && emit('duplicate', copiedFrame)
 .section {
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 
 .header {
@@ -81,20 +136,21 @@ const paste = () => copiedFrame && emit('duplicate', copiedFrame)
   align-items: center;
 }
 
-.add {
-  /* display: block;
-  background: none;
-  padding: 0;
-  border-radius: var(--radius-2);
-
-  &:hover {
-    background: var(--color-grid);
-  } */
-}
-
 .frames {
+  &[data-size='small'] {
+    --frame-size: 4rem;
+  }
+
+  &[data-size='medium'] {
+    --frame-size: 6rem;
+  }
+
+  &[data-size='big'] {
+    --frame-size: 9rem;
+  }
+
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(var(--frame-size), 1fr));
   grid-auto-rows: max-content;
   align-items: start;
   gap: var(--size-4);
@@ -113,47 +169,45 @@ const paste = () => copiedFrame && emit('duplicate', copiedFrame)
   background: inherit;
   color: inherit;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+
+  .frames[data-sorting='false']:not(:has(.frame:focus)) &[aria-current='true'] {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent);
+  }
 
   &:hover {
-    background-color: var(--color-border);
-    &[aria-current='true'] {
-      background-color: var(--color-accent);
-    }
+    border-color: var(--color-gray-3);
   }
 
   &:focus {
+    border-color: var(--color-accent);
     background-color: var(--color-accent);
-    border-color: var(--color-accent);
   }
 
-  .frames[data-dragging='false']:not(:has(.frame:focus)) &[aria-current='true'] {
-    border-color: var(--color-accent);
-  }
-
-  .drag-handle {
+  .sort-handle {
     position: absolute;
     top: 0;
     right: 0;
-    border-radius: var(--radius-2);
+    border-radius: var(--radius-1);
     box-sizing: content-box;
-    margin: 0.1rem;
+    margin: var(--size-1);
     padding: 0.1rem;
-    background-color: var(--color-grid);
-    border: 1px solid var(--color-border);
+    background-color: var(--color-gray-1);
     cursor: grab;
 
     .frame:not(:hover) & {
       display: none;
     }
 
-    .frames[data-dragging='true'] & {
+    .frames[data-sorting='true'] & {
       display: none;
     }
   }
 
   .frame-name {
     text-align: center;
-    margin-bottom: 0.25em;
   }
 }
 

@@ -1,24 +1,40 @@
-<script setup lang="ts">
-import { useTemplateRef, type Component } from 'vue'
+<script
+  setup
+  lang="ts"
+  generic="
+    Tool extends { id: string; shortcut?: string; icon: Component | string },
+    Tools extends Record<Tool['id'], Tool>
+  "
+>
+import { computed, useTemplateRef, type Component } from 'vue'
+import { upperFirst } from '../utils/text'
 
-type Tool = { id: string; label: string; icon: Component | string }
+const props = defineProps<{
+  tools: Tools
+  selected: keyof Tools
+}>()
 
-const props = defineProps<{ tools: Tool[] }>()
-const model = defineModel<Tool['id']>({ required: true })
+const emit = defineEmits<{ select: [id: keyof Tools] }>()
 const buttons = useTemplateRef('buttons')
+const list = computed(() => Object.values(props.tools) as Tool[])
 
 const selectPrev = () => {
-  let index = props.tools.findIndex((v) => v.id === model.value)
-  index = index === 0 ? props.tools.length - 1 : index - 1
+  let index = list.value.findIndex((v) => v.id === props.selected)
+  index = index === 0 ? list.value.length - 1 : index - 1
   buttons.value?.[index]?.focus()
-  model.value = props.tools[index].id
+  emit('select', list.value[index]!.id)
 }
 
 const selectNext = () => {
-  let index = props.tools.findIndex((v) => v.id === model.value)
-  index = index === props.tools.length - 1 ? 0 : index + 1
+  let index = list.value.findIndex((v) => v.id === props.selected)
+  index = index === list.value.length - 1 ? 0 : index + 1
   buttons.value?.[index]?.focus()
-  model.value = props.tools[index].id
+  emit('select', list.value[index]!.id)
+}
+
+const formatTitle = ({ id, shortcut }: Tool) => {
+  if (shortcut) return `${upperFirst(id)} ${upperFirst(shortcut)}`
+  else return upperFirst(id)
 }
 </script>
 
@@ -26,11 +42,11 @@ const selectNext = () => {
   <div class="tool-bar" role="toolbar" aria-label="Tools">
     <button
       v-for="tool in tools"
-      :title="tool.label"
-      :tabindex="tool.id === model ? 0 : -1"
-      :aria-pressed="tool.id === model"
+      :title="formatTitle(tool)"
+      :tabindex="tool.id === props.selected ? 0 : -1"
+      :aria-pressed="tool.id === props.selected"
       ref="buttons"
-      @click="model = tool.id"
+      @click="emit('select', tool.id)"
       @keydown.up="selectPrev"
       @keydown.down="selectNext"
     >

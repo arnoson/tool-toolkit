@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="T extends string | number | symbol">
 import { PopoverContent, PopoverRoot, PopoverTrigger } from 'reka-ui'
 import { computed } from 'vue'
-import { getInputId } from '~/utils/id'
+import { getInputId } from '../utils/id'
 
 const props = defineProps<{
   swatches: { value: T; color: string; label: string }[]

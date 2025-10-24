@@ -1,8 +1,14 @@
 <script setup lang="ts" generic="T extends Layer<T>">
-import { type Component } from 'vue'
-import { useDraggableTree } from '~/composables/draggableTree'
-import type { Layer } from '~/types/layer'
-import { findInTree, insertIntoTreeAfter, insertIntoTreeBefore, removeFromTree } from '~/utils/tree'
+import { computed, type Component } from 'vue'
+import { useDraggableTree } from '../composables/draggableTree'
+import type { Layer } from '../types/layer'
+import {
+  findInTree,
+  flattenTree,
+  insertIntoTreeAfter,
+  insertIntoTreeBefore,
+  removeFromTree,
+} from '../utils/tree'
 import LayersItem from './LayersItem.vue'
 
 const props = defineProps<{
@@ -11,7 +17,10 @@ const props = defineProps<{
   icons: Record<T['type'], Component | string>
 }>()
 
+const flatItems = computed(() => flattenTree(props.items))
+
 const emit = defineEmits<{
+  delete: [layer: T]
   'reorder-before': [targetId: number, sourceId: number]
   'reorder-after': [targetId: number, sourceId: number]
   combine: [targetId: number, sourceId: number]
@@ -41,19 +50,46 @@ useDraggableTree({ reorderBefore, reorderAfter, combine })
 </script>
 
 <template>
-  <ul class="layers">
-    <LayersItem v-for="item in items" :key="item.id" :item :items :selected-items :icons />
-  </ul>
+  <section class="layers">
+    <header class="header">
+      <h2>Layers</h2>
+    </header>
+    <ul class="items">
+      <LayersItem
+        v-for="item in items"
+        :key="item.id"
+        :item
+        :items
+        :flat-items
+        :selected-items
+        :icons
+        @delete="emit('delete', $event)"
+      />
+    </ul>
+  </section>
 </template>
 
 <style scoped>
 .layers {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding: var(--size-4);
+}
+
+.items {
   --layers-gap: var(--size-2);
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: var(--layers-gap);
   list-style: none;
-  padding: 0;
+  padding: var(--size-2);
+  padding-top: 0;
   margin: 0;
+  overflow-y: auto;
 }
 </style>

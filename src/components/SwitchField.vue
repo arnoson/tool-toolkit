@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { SwitchRoot, SwitchThumb } from 'reka-ui'
-import { getInputId } from '~/utils/id'
+import { getInputId } from '../utils/id'
 
 defineProps<{ label: string }>()
 const model = defineModel<boolean>({ required: true })

@@ -47,10 +47,10 @@ const open = async (e: Event) => {
 
 const handleFileChange = (event: Event) => {
   const input = event.target as HTMLInputElement
-  if (input.files && input.files.length > 0) {
-    emit('open', input.files[0])
-    input.value = ''
-  }
+  if (!input.files?.[0]) return
+
+  emit('open', input.files[0])
+  input.value = ''
 }
 
 watchEffect(() => {
@@ -99,18 +99,16 @@ watchEffect(() => {
 
 <template>
   <menu class="file-menu">
-    <li>
-      <div ref="dropZone" class="drop-zone" tabindex="0" :data-drop-state="dropState">
-        <input
-          ref="fileInput"
-          type="file"
-          style="display: none"
-          @change="handleFileChange"
-          :accept="acceptAttribute"
-        />
-        <button @click="open">Open</button>
-        <div class="drop-hint">or drop file</div>
-      </div>
+    <li ref="dropZone" class="drop-zone" tabindex="0" :data-drop-state="dropState">
+      <input
+        ref="fileInput"
+        type="file"
+        style="display: none"
+        @change="handleFileChange"
+        :accept="acceptAttribute"
+      />
+      <button @click="open">Open</button>
+      <div class="drop-hint">or drop file</div>
     </li>
     <li>
       <button @click="emit('save')">Save</button>

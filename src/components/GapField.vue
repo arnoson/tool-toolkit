@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getInputId } from '~/utils/id'
+import { getInputId } from '../utils/id'
 
 defineProps<{ label: string }>()
 const horizontal = defineModel<number | undefined>('horizontal', {
@@ -50,5 +50,6 @@ input {
 
 .prefixed-input {
   display: flex;
+  align-items: baseline;
 }
 </style>

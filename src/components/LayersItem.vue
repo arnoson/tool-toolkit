@@ -1,36 +1,35 @@
 <script setup lang="ts" generic="T extends Layer<T>">
-import { type Instruction } from '@atlaskit/pragmatic-drag-and-drop-hitbox/list-item'
 import { computed, ref, useTemplateRef, type Component } from 'vue'
-import IconChevron from '~/assets/icons/icon-chevron.svg'
-import IconInvisible from '~/assets/icons/icon-invisible.svg'
-import IconLocked from '~/assets/icons/icon-locked.svg'
-import IconUnlocked from '~/assets/icons/icon-unlocked.svg'
-import IconVisible from '~/assets/icons/icon-visible.svg'
-import { useDraggableTreeItem } from '~/composables/draggableTree'
-import type { Layer } from '~/types/layer'
-import { flattenTree } from '~/utils/tree'
+import IconChevron from '../assets/icons/icon-chevron.svg'
+import IconInvisible from '../assets/icons/icon-invisible.svg'
+import IconLocked from '../assets/icons/icon-locked.svg'
+import IconUnlocked from '../assets/icons/icon-unlocked.svg'
+import IconVisible from '../assets/icons/icon-visible.svg'
+import { useDraggableTreeItem } from '../composables/draggableTree'
+import type { Layer } from '../types/layer'
+import { flattenTree } from '../utils/tree'
 import InlineEdit from './InlineEdit.vue'
 
 const props = defineProps<{
   item: T
   items: T[]
+  flatItems: T[]
   selectedItems: Set<T>
   icons: Record<string, Component | string>
 }>()
+const emit = defineEmits<{ delete: [item: T] }>()
 const row = useTemplateRef('row')
 
 const hasChildren = computed(() => !!props.item.children?.length)
 const isSelected = computed(() => props.selectedItems.has(props.item))
 const isExpanded = ref(false)
 
-const { isDragging, isDraggedOver, instruction } = useDraggableTreeItem(row, {
+const { isDragging, instruction } = useDraggableTreeItem(row, {
   item: computed(() => props.item),
   isExpanded,
 })
 
 const operation = computed(() => instruction.value?.operation)
-
-const flatItems = computed(() => flattenTree(props.items))
 
 const handleMouseDown = (item: T, e: MouseEvent) => {
   if (e.ctrlKey) {
@@ -38,16 +37,16 @@ const handleMouseDown = (item: T, e: MouseEvent) => {
     else props.selectedItems.add(item)
   } else if (e.shiftKey && props.selectedItems.size) {
     // Find range bounds from current selection.
-    const currentIndex = flatItems.value.indexOf(item)
-    const selectedIndexes = [...props.selectedItems].map((v) => flatItems.value.indexOf(v))
+    const currentIndex = props.flatItems.indexOf(item)
+    const selectedIndexes = [...props.selectedItems].map((v) => props.flatItems.indexOf(v))
     const [fromIndex, toIndex] = [Math.min(...selectedIndexes), Math.max(...selectedIndexes)]
 
     // First add non-group items.
     const rangeStart = Math.min(currentIndex, fromIndex)
     const rangeEnd = Math.max(currentIndex, toIndex)
     for (let i = rangeStart; i <= rangeEnd; i++) {
-      const item = flatItems.value[i]
-      if (!item.children) props.selectedItems.add(item)
+      const item = props.flatItems[i]
+      if (item && !item.children) props.selectedItems.add(item)
     }
 
     // Add clicked group's children if applicable.
@@ -56,7 +55,7 @@ const handleMouseDown = (item: T, e: MouseEvent) => {
     }
 
     // Replace fully selected group's children with their parent group.
-    for (const item of flatItems.value) {
+    for (const item of props.flatItems) {
       if (item.children && item.children.every((child) => props.selectedItems.has(child))) {
         props.selectedItems.add(item)
         item.children.forEach((child) => props.selectedItems.delete(child))
@@ -77,7 +76,7 @@ const handleMouseDown = (item: T, e: MouseEvent) => {
       tabindex="0"
       role="button"
       @mousedown="handleMouseDown(item, $event)"
-      @keydown.shift="($event.target as HTMLElement).blur()"
+      @keyup.delete="emit('delete', item)"
     >
       <div v-show="operation" class="drop-indicator" :data-operation="operation"></div>
 
@@ -116,7 +115,16 @@ const handleMouseDown = (item: T, e: MouseEvent) => {
     </div>
 
     <ul v-if="hasChildren && isExpanded" class="children">
-      <LayersItem v-for="child of item.children" :item="child" :items :selected-items :icons>
+      <!-- @vue-ignore -->
+      <LayersItem
+        v-for="child of item.children"
+        :item="child"
+        :items
+        :flat-items
+        :selected-items
+        :icons
+        @delete="emit('delete', child)"
+      >
         <!-- @vue-ignore -->
         <template #icon="{ item }">
           <slot name="icon" :item></slot>
