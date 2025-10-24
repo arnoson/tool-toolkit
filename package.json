@@ -1,7 +1,6 @@
 {
   "name": "tool-toolkit",
-  "version": "0.0.2",
-  "private": true,
+  "version": "0.0.3",
   "type": "module",
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
@@ -14,7 +13,6 @@
     "README.md"
   ],
   "exports": {
-    ".": "./src/index.ts",
     "./*": "./src/*",
     "./package.json": "./package.json"
   },
