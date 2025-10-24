@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Prism from 'prismjs'
-import { computed, useTemplateRef } from 'vue'
+import { computed, useSlots, useTemplateRef } from 'vue'
 import IconSettings from '../assets/icons/icon-settings.svg'
 import { downloadFile } from '../utils/file'
 import ModalDialog from './ModalDialog.vue'
@@ -15,7 +15,7 @@ const props = defineProps<{
   fileName: string
 }>()
 
-const slots = defineSlots<{ settings(): any }>()
+const slots = useSlots()
 
 const highlighted = computed(() =>
   Prism.highlight(props.code, Prism.languages[props.language]!, props.language),
