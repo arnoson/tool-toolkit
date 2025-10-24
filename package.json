@@ -1,5 +1,5 @@
 {
-  "name": "vue-toolkit",
+  "name": "tool-toolkit",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -9,8 +9,15 @@
   "main": "src/index.ts",
   "types": "src/index.ts",
   "files": [
-    "src"
+    "src",
+    "package.json",
+    "README.md"
   ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*",
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
