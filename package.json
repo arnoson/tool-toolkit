@@ -1,6 +1,6 @@
 {
   "name": "tool-toolkit",
-  "version": "0.0.11",
+  "version": "0.0.10",
   "type": "module",
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
@@ -20,7 +20,7 @@
     "type-check": "vue-tsc --build",
     "format": "prettier --write src/",
     "release": "bumpp",
-    "version": "npm run build && git add -A dist"
+    "version": "npm run build && git add -A dist && git commit -m \"chore: build\""
   },
   "dependencies": {
     "@atlaskit/pragmatic-drag-and-drop": "^1.7.7",
