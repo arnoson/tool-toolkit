@@ -6,10 +6,12 @@ declare const _default: import('vue').DefineComponent<__VLS_Props, {}, {}, {}, {
     open: (file: File | FileSystemFileHandle) => any;
     clear: () => any;
     save: () => any;
+    saveAs: () => any;
 }, string, import('vue').PublicProps, Readonly<__VLS_Props> & Readonly<{
     onOpen?: ((file: File | FileSystemFileHandle) => any) | undefined;
     onClear?: (() => any) | undefined;
     onSave?: (() => any) | undefined;
+    onSaveAs?: (() => any) | undefined;
 }>, {}, {}, {}, {}, string, import('vue').ComponentProvideOptions, false, {
     dropZone: HTMLLIElement;
     fileInput: HTMLInputElement;
