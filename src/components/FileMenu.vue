@@ -6,13 +6,26 @@ import {
 } from '@atlaskit/pragmatic-drag-and-drop/external/adapter'
 import { containsFiles } from '@atlaskit/pragmatic-drag-and-drop/external/file'
 import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unhandled'
-import { computed, onWatcherCleanup, ref, useTemplateRef, watchEffect } from 'vue'
+import {
+  computed,
+  onWatcherCleanup,
+  ref,
+  useTemplateRef,
+  watchEffect,
+} from 'vue'
+import SplitButton from './SplitButton.vue'
 
 const emit = defineEmits<{
   open: [file: File | FileSystemFileHandle]
   clear: []
   save: []
+  saveAs: []
 }>()
+
+const handleSaveAction = (action: string) => {
+  if (action === 'save') emit('save')
+  else emit('saveAs')
+}
 
 const props = defineProps<{
   filePickerId?: number
@@ -99,7 +112,12 @@ watchEffect(() => {
 
 <template>
   <menu class="file-menu">
-    <li ref="dropZone" class="drop-zone" tabindex="0" :data-drop-state="dropState">
+    <li
+      ref="dropZone"
+      class="drop-zone"
+      tabindex="0"
+      :data-drop-state="dropState"
+    >
       <input
         ref="fileInput"
         type="file"
@@ -111,7 +129,15 @@ watchEffect(() => {
       <div class="drop-hint">or drop file</div>
     </li>
     <li>
-      <button @click="emit('save')">Save</button>
+      <SplitButton
+        v-if="hasFileSystemApi"
+        :actions="[
+          { value: 'save' as const, label: 'Save' },
+          { value: 'saveAs' as const, label: 'Save as…' },
+        ]"
+        @action="handleSaveAction"
+      />
+      <button v-else @click="emit('save')">Save</button>
     </li>
     <li>
       <button @click="emit('clear')">Clear</button>

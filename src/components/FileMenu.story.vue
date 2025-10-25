@@ -26,8 +26,11 @@ const open = async (fileOrHandle: File | FileSystemFileHandle) => {
   if (isFileHandle) fileHandle = fileOrHandle
 }
 
-const save = async () => {
+const save = async (saveAs = false) => {
   if (hasFileSystemApi) {
+    // Force a file picker to be shown.
+    if (saveAs) fileHandle = null
+
     fileHandle ??= await window.showSaveFilePicker({
       types: [fileType],
       suggestedName: fileName.value,
@@ -44,7 +47,7 @@ const save = async () => {
 
 <template>
   <Story style="display: flex; flex-direction: column; gap: 1rem">
-    <FileMenu :file-type @open="open" @save="save" />
+    <FileMenu :file-type @open="open" @save="save" @save-as="save(true)" />
     <TextField label="File Name" v-model="fileName" :disabled="!!fileHandle" />
     <textarea v-model="fileContent"></textarea>
   </Story>
