@@ -15,6 +15,7 @@ const nameModel = defineModel<string>('name', { required: true })
 const emit = defineEmits<{
   open: [file: File | FileSystemFileHandle]
   save: []
+  saveAs: []
   clear: []
 }>()
 
@@ -36,6 +37,7 @@ const clear = async () => {
       :file-type="fileType"
       @open="emit('open', $event)"
       @save="emit('save')"
+      @save-as="emit('saveAs')"
       @clear="clear()"
     />
     <div class="name-settings">
