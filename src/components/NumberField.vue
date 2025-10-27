@@ -2,7 +2,10 @@
 import { getInputId } from '../utils/id'
 
 defineProps<{ label: string; min?: number; max?: number; step?: number }>()
-const model = defineModel<number>({ required: true })
+const model = defineModel<number | undefined>({
+  required: true,
+  set: (value: any) => (value === '' ? undefined : value),
+})
 const id = getInputId()
 </script>
 
