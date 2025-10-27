@@ -5,11 +5,11 @@ type __VLS_Props = {
     step?: number;
 };
 type __VLS_PublicProps = {
-    modelValue: number;
+    modelValue: number | undefined;
 } & __VLS_Props;
 declare const _default: import('vue').DefineComponent<__VLS_PublicProps, {}, {}, {}, {}, import('vue').ComponentOptionsMixin, import('vue').ComponentOptionsMixin, {
-    "update:modelValue": (value: number) => any;
+    "update:modelValue": (value: number | undefined) => any;
 }, string, import('vue').PublicProps, Readonly<__VLS_PublicProps> & Readonly<{
-    "onUpdate:modelValue"?: ((value: number) => any) | undefined;
+    "onUpdate:modelValue"?: ((value: number | undefined) => any) | undefined;
 }>, {}, {}, {}, {}, string, import('vue').ComponentProvideOptions, false, {}, HTMLDivElement>;
 export default _default;

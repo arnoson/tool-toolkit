@@ -134,11 +134,13 @@ declare const __VLS_component: import('vue').DefineComponent<__VLS_PublicProps, 
     open: (file: File | FileSystemFileHandle) => any;
     clear: () => any;
     save: () => any;
+    saveAs: () => any;
     "update:name": (value: string) => any;
 }, string, import('vue').PublicProps, Readonly<__VLS_PublicProps> & Readonly<{
     onOpen?: ((file: File | FileSystemFileHandle) => any) | undefined;
     onClear?: (() => any) | undefined;
     onSave?: (() => any) | undefined;
+    onSaveAs?: (() => any) | undefined;
     "onUpdate:name"?: ((value: string) => any) | undefined;
 }>, {}, {}, {}, {}, string, import('vue').ComponentProvideOptions, false, {
     clearDialog: ({
