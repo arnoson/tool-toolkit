@@ -5072,16 +5072,12 @@ const El = ({
     max: {},
     step: {}
   }, {
-    modelValue: {
-      required: !0
-    },
+    modelValue: { required: !0 },
     modelModifiers: {}
   }),
   emits: ["update:modelValue"],
   setup(e) {
-    const t = Q(e, "modelValue", {
-      set: (r) => r === "" ? void 0 : r
-    }), n = me();
+    const t = Q(e, "modelValue"), n = me();
     return (r, a) => (_(), I("div", Nl, [
       E("label", { for: F(n) }, Y(e.label), 9, Ll),
       Me(E("input", {
