@@ -1,6 +1,10 @@
 type __VLS_Props = {
     fileType: FilePickerAcceptType;
     hasUnsavedChanges: boolean;
+    actions: {
+        value: string;
+        label: string;
+    }[];
 };
 type __VLS_PublicProps = {
     'name': string;
@@ -132,12 +136,14 @@ declare function __VLS_template(): {
 type __VLS_TemplateResult = ReturnType<typeof __VLS_template>;
 declare const __VLS_component: import('vue').DefineComponent<__VLS_PublicProps, {}, {}, {}, {}, import('vue').ComponentOptionsMixin, import('vue').ComponentOptionsMixin, {
     open: (file: File | FileSystemFileHandle) => any;
+    action: (args_0: string) => any;
     clear: () => any;
     save: () => any;
     saveAs: () => any;
     "update:name": (value: string) => any;
 }, string, import('vue').PublicProps, Readonly<__VLS_PublicProps> & Readonly<{
     onOpen?: ((file: File | FileSystemFileHandle) => any) | undefined;
+    onAction?: ((args_0: string) => any) | undefined;
     onClear?: (() => any) | undefined;
     onSave?: (() => any) | undefined;
     onSaveAs?: (() => any) | undefined;

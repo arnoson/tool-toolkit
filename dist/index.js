@@ -2687,12 +2687,13 @@ const Pr = { render: Po }, Mo = { class: "split-button" }, jo = { class: "select
   __name: "FileMenu",
   props: {
     filePickerId: {},
-    fileType: {}
+    fileType: {},
+    actions: {}
   },
-  emits: ["open", "clear", "save", "saveAs"],
+  emits: ["open", "clear", "save", "saveAs", "action"],
   setup(e, { emit: t }) {
     const n = t, r = (w) => {
-      n(w === "save" ? "save" : "saveAs");
+      w === "save" ? n("save") : w === "save-as" ? n("saveAs") : n("action", w);
     }, a = e, o = ge(
       () => [
         ...Object.keys(a.fileType.accept ?? {}),
@@ -2771,10 +2772,11 @@ const Pr = { render: Po }, Mo = { class: "split-button" }, jo = { class: "select
           key: 0,
           actions: [
             { value: "save", label: "Save" },
-            { value: "saveAs", label: "Save as…" }
+            { value: "saveAs", label: "Save as…" },
+            ...e.actions
           ],
           onAction: r
-        })) : (_(), I("button", {
+        }, null, 8, ["actions"])) : (_(), I("button", {
           key: 1,
           onClick: v[0] || (v[0] = (y) => n("save"))
         }, "Save"))
@@ -2786,7 +2788,7 @@ const Pr = { render: Po }, Mo = { class: "split-button" }, jo = { class: "select
       ])
     ]));
   }
-}), Wo = /* @__PURE__ */ te(zo, [["__scopeId", "data-v-27ba7162"]]);
+}), Wo = /* @__PURE__ */ te(zo, [["__scopeId", "data-v-3a9ea1a2"]]);
 /**!
  * Sortable 1.15.6
  * @author	RubaXa   <trash@rubaxa.org>
@@ -5144,12 +5146,13 @@ const El = ({
   __name: "ProjectProperties",
   props: /* @__PURE__ */ J({
     fileType: {},
-    hasUnsavedChanges: { type: Boolean }
+    hasUnsavedChanges: { type: Boolean },
+    actions: {}
   }, {
     name: { required: !0 },
     nameModifiers: {}
   }),
-  emits: /* @__PURE__ */ J(["open", "save", "saveAs", "clear"], ["update:name"]),
+  emits: /* @__PURE__ */ J(["open", "save", "saveAs", "action", "clear"], ["update:name"]),
   setup(e, { emit: t }) {
     const n = Q(e, "name"), r = t, a = vr(), o = he("clearDialog"), l = he("settingsDialog"), i = async () => {
       await o.value?.prompt() === "submit" && r("clear");
@@ -5158,22 +5161,24 @@ const El = ({
       E("div", Gl, [
         K(Wo, {
           "file-type": e.fileType,
+          actions: e.actions,
           onOpen: u[0] || (u[0] = (d) => r("open", d)),
           onSave: u[1] || (u[1] = (d) => r("save")),
           onSaveAs: u[2] || (u[2] = (d) => r("saveAs")),
-          onClear: u[3] || (u[3] = (d) => i())
-        }, null, 8, ["file-type"]),
+          onAction: u[3] || (u[3] = (d) => r("action", d)),
+          onClear: u[4] || (u[4] = (d) => i())
+        }, null, 8, ["file-type", "actions"]),
         E("div", ql, [
           E("h2", null, [
             K($n, {
               modelValue: n.value,
-              "onUpdate:modelValue": u[4] || (u[4] = (d) => n.value = d)
+              "onUpdate:modelValue": u[5] || (u[5] = (d) => n.value = d)
             }, null, 8, ["modelValue"])
           ]),
           e.hasUnsavedChanges ? (_(), I("div", Kl)) : Fe("", !0),
           F(a).settings ? (_(), I("button", {
             key: 1,
-            onClick: u[5] || (u[5] = (d) => l.value?.open()),
+            onClick: u[6] || (u[6] = (d) => l.value?.open()),
             "data-theme": "dark"
           }, [
             K(F(br))
@@ -5188,14 +5193,14 @@ const El = ({
         default: ye(({ close: d }) => [
           E("form", Zl, [
             ze(s.$slots, "clear", {}, () => [
-              u[6] || (u[6] = E("p", null, "Are you sure?", -1))
+              u[7] || (u[7] = E("p", null, "Are you sure?", -1))
             ], !0),
             E("menu", null, [
               E("button", {
                 type: "reset",
                 onClick: d
               }, "Cancel", 8, Jl),
-              u[7] || (u[7] = E("button", {
+              u[8] || (u[8] = E("button", {
                 type: "submit",
                 value: "submit",
                 "data-theme": "positive",
@@ -5213,7 +5218,7 @@ const El = ({
       }, {
         default: ye(() => [
           E("div", Ql, [
-            u[8] || (u[8] = E("h2", null, "Settings", -1)),
+            u[9] || (u[9] = E("h2", null, "Settings", -1)),
             ze(s.$slots, "settings", {}, void 0, !0)
           ])
         ]),
@@ -5221,7 +5226,7 @@ const El = ({
       }, 512)) : Fe("", !0)
     ], 64));
   }
-}), Bs = /* @__PURE__ */ te(es, [["__scopeId", "data-v-20771300"]]), ts = { class: "field" }, ns = ["for"], rs = ["id"], as = {
+}), Bs = /* @__PURE__ */ te(es, [["__scopeId", "data-v-e9f7ca41"]]), ts = { class: "field" }, ns = ["for"], rs = ["id"], as = {
   key: 0,
   value: ""
 }, os = ["label"], is = ["value"], ls = ["value"], zs = /* @__PURE__ */ z({

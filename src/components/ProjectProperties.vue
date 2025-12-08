@@ -8,6 +8,7 @@ import ModalDialog from './ModalDialog.vue'
 defineProps<{
   fileType: FilePickerAcceptType
   hasUnsavedChanges: boolean
+  actions: { value: string; label: string }[]
 }>()
 
 const nameModel = defineModel<string>('name', { required: true })
@@ -16,6 +17,7 @@ const emit = defineEmits<{
   open: [file: File | FileSystemFileHandle]
   save: []
   saveAs: []
+  action: [string]
   clear: []
 }>()
 
@@ -35,9 +37,11 @@ const clear = async () => {
   <div class="panel">
     <FileMenu
       :file-type="fileType"
+      :actions
       @open="emit('open', $event)"
       @save="emit('save')"
       @save-as="emit('saveAs')"
+      @action="emit('action', $event)"
       @clear="clear()"
     />
     <div class="name-settings">

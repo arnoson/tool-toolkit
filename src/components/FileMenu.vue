@@ -20,16 +20,19 @@ const emit = defineEmits<{
   clear: []
   save: []
   saveAs: []
+  action: [type: string]
 }>()
 
-const handleSaveAction = (action: string) => {
+const handleAction = (action: string) => {
   if (action === 'save') emit('save')
-  else emit('saveAs')
+  else if (action === 'save-as') emit('saveAs')
+  else emit('action', action)
 }
 
 const props = defineProps<{
   filePickerId?: number
   fileType: FilePickerAcceptType
+  actions?: { value: string; label: string }[]
 }>()
 
 const acceptAttribute = computed(() =>
@@ -134,8 +137,9 @@ watchEffect(() => {
         :actions="[
           { value: 'save' as const, label: 'Save' },
           { value: 'saveAs' as const, label: 'Save as…' },
+          ...(actions ?? []),
         ]"
-        @action="handleSaveAction"
+        @action="handleAction"
       />
       <button v-else @click="emit('save')">Save</button>
     </li>
