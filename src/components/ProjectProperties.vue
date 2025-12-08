@@ -8,7 +8,7 @@ import ModalDialog from './ModalDialog.vue'
 defineProps<{
   fileType: FilePickerAcceptType
   hasUnsavedChanges: boolean
-  actions: { value: string; label: string }[]
+  actions?: { value: string; label: string }[]
 }>()
 
 const nameModel = defineModel<string>('name', { required: true })
