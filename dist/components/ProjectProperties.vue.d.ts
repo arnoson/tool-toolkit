@@ -1,7 +1,7 @@
 type __VLS_Props = {
     fileType: FilePickerAcceptType;
     hasUnsavedChanges: boolean;
-    actions: {
+    actions?: {
         value: string;
         label: string;
     }[];
