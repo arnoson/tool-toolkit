@@ -1,5 +1,9 @@
-export const downloadFile = (name: string, text: string) => {
-  const blob = new Blob([text], { type: 'text/plain' })
+export const downloadFile = (name: string, content: string | Blob) => {
+  const blob =
+    content instanceof Blob
+      ? content
+      : new Blob([content], { type: 'text/plain' })
+
   const url = window.URL.createObjectURL(blob)
 
   const a = document.createElement('a')
