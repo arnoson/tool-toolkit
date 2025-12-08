@@ -2773,7 +2773,7 @@ const Pr = { render: Po }, Mo = { class: "split-button" }, jo = { class: "select
           actions: [
             { value: "save", label: "Save" },
             { value: "saveAs", label: "Save as…" },
-            ...e.actions
+            ...e.actions ?? []
           ],
           onAction: r
         }, null, 8, ["actions"])) : (_(), I("button", {
@@ -2788,7 +2788,7 @@ const Pr = { render: Po }, Mo = { class: "split-button" }, jo = { class: "select
       ])
     ]));
   }
-}), Wo = /* @__PURE__ */ te(zo, [["__scopeId", "data-v-3a9ea1a2"]]);
+}), Wo = /* @__PURE__ */ te(zo, [["__scopeId", "data-v-6bd85c1d"]]);
 /**!
  * Sortable 1.15.6
  * @author	RubaXa   <trash@rubaxa.org>
